@@ -2,9 +2,12 @@
 
 import { useFetchCities } from "@/app/hooks/citiesData";
 import Tile from "@/app/components/tile";
+import { useFiltersContext } from "@/app/contexts";
 
 export default function TileGrid() {
-  const { data, isLoading } = useFetchCities();
+  const { search } = useFiltersContext();
+
+  const { data, isLoading } = useFetchCities(search);
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -16,8 +19,8 @@ export default function TileGrid() {
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
-      {data.map((city) => (
-        <Tile city={city} key={city.name} />
+      {data.map((city, i) => (
+        <Tile city={city} key={`${city.name}_${i}`} />
       ))}
     </div>
   );
