@@ -5,12 +5,13 @@ import {
   useContext,
   ReactNode,
 } from "react";
+import { SortBy } from "@/app/models";
 
 export interface FiltersContextValue {
   search: string | undefined;
   setSearch: (search: string | undefined) => void;
-  sortBy: string | undefined;
-  setSortBy: (sortBy: string | undefined) => void;
+  sortBy: SortBy | undefined;
+  setSortBy: (sortBy: SortBy | undefined) => void;
 }
 
 export const FiltersContext = createContext<FiltersContextValue | undefined>(
@@ -24,8 +25,8 @@ interface FiltersContextProps {
 export const FiltersContextProvider: FunctionComponent<FiltersContextProps> = ({
   children,
 }) => {
-  const [search, setSearch] = useState<string | undefined>("");
-  const [sortBy, setSortBy] = useState<string | undefined>("");
+  const [search, setSearch] = useState<string | undefined>(undefined);
+  const [sortBy, setSortBy] = useState<SortBy | undefined>(undefined);
 
   return (
     <FiltersContext.Provider

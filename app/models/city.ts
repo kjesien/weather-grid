@@ -12,3 +12,8 @@ export interface Coordinates {
   lat: number;
   lng: number;
 }
+
+export const TEL_AVIV_COORDINATES: Coordinates = {
+  lat: 32.109333,
+  lng: 34.855499,
+};

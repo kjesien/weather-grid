@@ -5,9 +5,9 @@ import Tile from "@/app/components/tile";
 import { useFiltersContext } from "@/app/contexts";
 
 export default function TileGrid() {
-  const { search } = useFiltersContext();
+  const { search, sortBy } = useFiltersContext();
 
-  const { data, isLoading } = useFetchCities(search);
+  const { data, isLoading } = useFetchCities(search, sortBy);
 
   if (isLoading) {
     return <span>Loading...</span>;

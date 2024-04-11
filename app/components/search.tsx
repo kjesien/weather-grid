@@ -4,10 +4,12 @@ import { DebounceInput } from "react-debounce-input";
 export default function Search({
   initialValue,
   onChange,
+  placeholder,
   className,
 }: {
   initialValue?: string;
   onChange?: (search: string | undefined) => void;
+  placeholder?: string;
   className?: string;
 }) {
   const [value, setValue] = useState<string | undefined>(initialValue);
@@ -28,8 +30,8 @@ export default function Search({
   return (
     <div className={className}>
       <DebounceInput
-        className="w-52 bg-slate-700 rounded-lg shadow-sm p-1 mr-2"
-        placeholder="Search for location"
+        className="w-52 bg-slate-700 rounded-lg shadow-sm px-3 p-1 mr-2 text-slate-100"
+        placeholder={placeholder}
         debounceTimeout={400}
         value={value || ""}
         minLength={3}
