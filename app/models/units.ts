@@ -13,6 +13,6 @@ export const unitSystemToUnitMap: Record<
   { temp: string; speed: string }
 > = {
   metric: { temp: "°C", speed: "m/s" },
-  imperial: { temp: "°F", speed: "fs/s" },
+  imperial: { temp: "°F", speed: "ft/s" },
   standard: { temp: "°C", speed: "m/s" },
 };
