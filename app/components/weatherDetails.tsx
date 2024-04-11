@@ -1,17 +1,26 @@
 "use client";
 import Image from "next/image";
-import { Coordinates } from "@/app/models";
+import {
+  Coordinates,
+  CurrentWeatherDataParameters,
+  unitSystemToUnitMap,
+} from "@/app/models";
 import { useFetchWeatherDetails } from "@/app/hooks/weatherDetails";
+import { useMemo } from "react";
 
 export default function WeatherDetails({
   coordinates,
+  unitSystem,
 }: {
   coordinates: Coordinates;
+  unitSystem: Exclude<CurrentWeatherDataParameters["units"], undefined>;
 }) {
   const { data: weatherData, isLoading } = useFetchWeatherDetails(
     coordinates,
-    "metric",
+    unitSystem,
   );
+
+  const units = useMemo(() => unitSystemToUnitMap[unitSystem], [unitSystem]);
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -28,11 +37,15 @@ export default function WeatherDetails({
           <tbody>
             <tr>
               <td>Temperature</td>
-              <td>{weatherData.main.temp} °C</td>
+              <td>
+                {weatherData.main.temp} {units.temp}
+              </td>
             </tr>
             <tr>
               <td>Felt temperature</td>
-              <td>{weatherData.main.feels_like} °C</td>
+              <td>
+                {weatherData.main.feels_like} {units.temp}
+              </td>
             </tr>
             <tr>
               <td>Conditions</td>
@@ -72,7 +85,9 @@ export default function WeatherDetails({
             </tr>
             <tr>
               <td>Wind speed</td>
-              <td>{weatherData.wind.speed} m/s</td>
+              <td>
+                {weatherData.wind.speed} {units.speed}
+              </td>
             </tr>
             <tr>
               <td>Cloudiness</td>

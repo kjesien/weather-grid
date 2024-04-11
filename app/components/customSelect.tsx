@@ -2,18 +2,21 @@ import React from "react";
 import Select, { Options, SingleValue } from "react-select";
 import { Option } from "@/app/models";
 
-export default function SortSelect<T extends string>({
+export default function CustomSelect<T extends string>({
+  id,
   initialValue,
   onChange,
   className,
   placeholder,
+  isClearable,
   options,
 }: {
+  id: string;
   initialValue?: Option<T>;
-  onChange?: (search: string | undefined) => void;
+  onChange?: (search: T | undefined) => void;
   className?: string;
   placeholder?: string;
-
+  isClearable?: boolean;
   options: Options<Option<T>>;
 }) {
   const onOptionChanged = (option: SingleValue<Option<T>>) => {
@@ -22,7 +25,7 @@ export default function SortSelect<T extends string>({
   return (
     <div className={className}>
       <Select
-        instanceId="sort-select"
+        instanceId={id}
         classNames={{
           control: () => "w-64 !bg-slate-700 rounded-lg shadow-sm !border-0",
           menuList: () => "!bg-slate-600",
@@ -34,7 +37,7 @@ export default function SortSelect<T extends string>({
         options={options}
         onChange={onOptionChanged}
         placeholder={placeholder}
-        isClearable
+        isClearable={Boolean(isClearable)}
       />
     </div>
   );

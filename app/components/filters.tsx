@@ -1,6 +1,6 @@
 "use client";
 import Search from "@/app/components/search";
-import SortSelect from "@/app/components/sortSelect";
+import CustomSelect from "@/app/components/customSelect";
 import { SortBy, sortByOptions } from "@/app/models";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/store";
 import {
@@ -34,7 +34,9 @@ export default function Filters() {
         onChange={onSearchChange}
         initialValue={search}
       />
-      <SortSelect
+      <CustomSelect
+        id="sort-select"
+        isClearable
         options={sortByOptions}
         onChange={onSortByChange}
         initialValue={sortByInitialValue}

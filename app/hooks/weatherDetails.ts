@@ -8,13 +8,13 @@ import useSWR from "swr";
 
 async function fetchCurrentWeatherData(
   { lat, lng }: Coordinates,
-  units: CurrentWeatherDataParameters["units"],
+  units: Exclude<CurrentWeatherDataParameters["units"], undefined>,
 ): Promise<CurrentWeatherDataResponse> {
   const params = {
     appid: getApiKey(),
     lat: lat.toString(),
     lon: lng.toString(),
-    units: units!,
+    units,
   } satisfies CurrentWeatherDataParameters;
 
   const res = await fetch(
@@ -32,7 +32,7 @@ async function fetchCurrentWeatherData(
 
 export function useFetchWeatherDetails(
   coords: Coordinates,
-  measureSystem: CurrentWeatherDataParameters["units"],
+  measureSystem: Exclude<CurrentWeatherDataParameters["units"], undefined>,
 ) {
   return useSWR(
     `getWeatherDetails:${coords.lat}:${coords.lng}:${measureSystem}`,
