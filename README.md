@@ -31,5 +31,5 @@ npm run dev
 
 ## Deployment
 
-### You can view the deployed version on this [url](https://current-weather-six.vercel.app/). This demo is hosted with Vercel.
+### You can view the deployed version on this [url](https://weather-grid.vercel.app/). This demo is hosted with Vercel.
 
