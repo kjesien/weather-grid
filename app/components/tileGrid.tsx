@@ -2,12 +2,25 @@
 
 import { useFetchCities } from "@/app/hooks/citiesData";
 import Tile from "@/app/components/tile";
-import { useFiltersContext } from "@/app/contexts";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/store";
+import { selectSearch, selectSortBy } from "@/app/store/filtersSlice";
+import { setBaseCityInfo } from "@/app/store/detailsSlice";
+import { CityData } from "@/app/models";
+import { useRouter } from "next/navigation";
 
 export default function TileGrid() {
-  const { search, sortBy } = useFiltersContext();
+  const search = useAppSelector(selectSearch);
+  const sortBy = useAppSelector(selectSortBy);
 
   const { data, isLoading } = useFetchCities(search, sortBy);
+
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const onTileClick = (city: CityData) => {
+    dispatch(setBaseCityInfo(city));
+    router.push("details");
+  };
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -20,7 +33,7 @@ export default function TileGrid() {
   return (
     <div className="flex flex-row flex-wrap justify-center">
       {data.map((city, i) => (
-        <Tile city={city} key={`${city.name}_${i}`} />
+        <Tile city={city} onClick={onTileClick} key={`${city.name}_${i}`} />
       ))}
     </div>
   );
