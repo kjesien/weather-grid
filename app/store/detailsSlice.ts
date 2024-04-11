@@ -25,9 +25,6 @@ export const detailsSlice = createSlice({
 
 export const { setBaseCityInfo, clearDetails } = detailsSlice.actions;
 
-export const selectBaseCityInfo = (state: RootState): CityData => {
-  if (!state.details.baseCityInfo) {
-    throw new Error("Base City Info is not in the store!");
-  }
+export const selectBaseCityInfo = (state: RootState): CityData | undefined => {
   return state.details.baseCityInfo;
 };

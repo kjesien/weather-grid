@@ -5,7 +5,7 @@ import Tile from "@/app/components/tile";
 import { useSelector } from "react-redux";
 import { selectBaseCityInfo } from "@/app/store/detailsSlice";
 import { redirect } from "next/navigation";
-import { CityData, unitsSystemOptions } from "@/app/models";
+import { unitsSystemOptions } from "@/app/models";
 import WeatherDetails from "@/app/components/weatherDetails";
 import CustomSelect from "@/app/components/customSelect";
 import { useState } from "react";
@@ -13,11 +13,9 @@ import { useState } from "react";
 export default function Details() {
   const [units, setUnits] = useState(unitsSystemOptions[0].value);
 
-  let cityInfo: CityData;
+  const cityInfo = useSelector(selectBaseCityInfo);
 
-  try {
-    cityInfo = useSelector(selectBaseCityInfo);
-  } catch (err) {
+  if (!cityInfo) {
     redirect("/");
   }
 
